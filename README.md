@@ -4,40 +4,21 @@
 
 If you are not framiliar with git-hub please see the GitHub intro [here](https://services.github.com/on-demand/intro-to-github/)
 
-GitHub offers an excellent free student pack with tons of useful products and services [here](https://education.github.com/pack)
+GitHub offers an excellent free student pack with tons of useful products and services [available here](https://education.github.com/pack)
+
+## About this site
+
+GitHub is a collaberative site.  Here you can find examples of code that you can borrow (fork) to help develop your own idea.  You can also contribute (commit) to other peoples projects help them create a better product.
+
+You will find examples of code that you can use to assist you.
 
 
 
 
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/SolarCarChallenge/pi-top/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
