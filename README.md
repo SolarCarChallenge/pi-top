@@ -1,6 +1,11 @@
-## Welcome to the Solar Car Challenge
+# Welcome to the Solar Car Challenge
 
-If you are not framiliar with git-hub please see the git-hub intro [here](https://services.github.com/on-demand/intro-to-github/)
+## Getting Started
+
+If you are not framiliar with git-hub please see the GitHub intro [here](https://services.github.com/on-demand/intro-to-github/)
+
+GitHub offers an excellent free student pack with tons of useful products and services [here](https://education.github.com/pack)
+
 
 
 
