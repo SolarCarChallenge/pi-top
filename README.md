@@ -1,8 +1,9 @@
-## Welcome to GitHub Pages
+## Welcome to the Solar Car Challenge
 
-You can use the [editor on GitHub](https://github.com/SolarCarChallenge/pi-top/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+If you are not framiliar with git-hub please see the git-hub intro(https://services.github.com/on-demand/intro-to-github/)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+
+
 
 ### Markdown
 
