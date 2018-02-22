@@ -1,6 +1,6 @@
 ## Welcome to the Solar Car Challenge
 
-If you are not framiliar with git-hub please see the git-hub intro(https://services.github.com/on-demand/intro-to-github/)
+If you are not framiliar with git-hub please see the git-hub intro [here](https://services.github.com/on-demand/intro-to-github/)
 
 
 
