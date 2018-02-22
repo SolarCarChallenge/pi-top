@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-If you are not framiliar with GitHub please intro available [here](https://services.github.com/on-demand/intro-to-github/)is a very useful tool.
+If you are not framiliar with GitHub, the [intro to GitHub](https://services.github.com/on-demand/intro-to-github/) is a very useful tool.
 
 GitHub offers an excellent free student pack with tons of useful products and services [available here](https://education.github.com/pack)
 
