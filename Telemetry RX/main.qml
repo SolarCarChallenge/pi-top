@@ -76,23 +76,8 @@ ApplicationWindow {
             }
         }
 
-        Image {
-            id: image1
-            x: 1035
-            y: 24
-            width: 183
-            height: 316
-            fillMode: Image.PreserveAspectFit
-            source: "battery.png"
 
-            Gauge {
-                id: gauge
-                x: 15
-                y: 57
-                width: 150
-                height: 221
-            }
-        }
+
 
         
     }
