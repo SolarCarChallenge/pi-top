@@ -27,6 +27,7 @@ class Dash(QObject):
     mainVoltage = pyqtSignal(float, arguments=['mainvolt'])
     mainCurrent = pyqtSignal(float, arguments=['maincur'])
     carSpeed = pyqtSignal(float, arguments=['speedmph'])
+    ampHour = pyqtSignal(float, arguments=['amphr'])
     
     
 
@@ -42,6 +43,7 @@ class ThreadClass(QThread):
     mainVoltage = pyqtSignal(float, arguments=['mainvolt'])
     mainCurrent = pyqtSignal(float, arguments=['maincur'])
     carSpeed = pyqtSignal(float, arguments=['speedmph'])
+    ampHour = pyqtSignal(float, arguments=['amphr'])
 
 
     
@@ -53,12 +55,13 @@ class ThreadClass(QThread):
         self.mainVoltage.connect(dashboard.mainVoltage)
         self.mainCurrent.connect(dashboard.mainCurrent)
         self.carSpeed.connect(dashboard.carSpeed)
+        self.ampHour.connect(dashboard.ampHour)
 
         
 
 
     def run(self):
-        auxvalue=17.0
+        auxvalue=7.0
         auxcountup=True
         mainvalue=38
         maincountup=True
@@ -66,6 +69,8 @@ class ThreadClass(QThread):
         currentcountup=True
         speedvalue=0
         speedcountup=True
+        amphourvalue=0
+        amphourcountup=True
         
         while True:
             if auxcountup:
@@ -79,9 +84,9 @@ class ThreadClass(QThread):
                 auxcountup = True
                 
             if maincountup:
-                mainvalue+=.1
+                mainvalue+=.2
             else:
-                mainvalue-=.1
+                mainvalue-=.2
             
             if mainvalue > 58:
                 maincountup = False
@@ -89,9 +94,9 @@ class ThreadClass(QThread):
                 maincountup = True
                 
             if currentcountup:
-                currentvalue+=.1
+                currentvalue+=1
             else:
-                currentvalue-=.1
+                currentvalue-=1
             
             if currentvalue > 50:
                 currentcountup = False
@@ -99,14 +104,25 @@ class ThreadClass(QThread):
                 currentcountup = True
                 
             if speedcountup:
-               speedvalue+=.1
+               speedvalue+=.6
             else:
-                speedvalue-=.1
+                speedvalue-=.6
             
             if speedvalue > 60:
                 speedcountup = False
             if speedvalue < 0:
                 speedcountup = True
+                
+            if amphourcountup:
+               amphourvalue+=1
+            else:
+                amphourvalue-=1
+            
+            if amphourvalue > 99:
+                amphourcountup = False
+            if amphourvalue < 0:
+                amphourcountup = True
+                
                 
                 
                 
@@ -118,16 +134,18 @@ class ThreadClass(QThread):
             mainvalue=round(mainvalue,2)
             currentvalue=round(currentvalue,2)
             speedvalue=round(speedvalue,2)
+            amphourvalue=round(amphourvalue,2)
  
             # Emit the signals
             self.auxVoltage.emit(auxvalue)
             self.mainVoltage.emit(mainvalue)
             self.mainCurrent.emit(currentvalue)
             self.carSpeed.emit(speedvalue)
+            self.ampHour.emit(amphourvalue)
             
             
             
-            time.sleep(.01)
+            time.sleep(.5)
 
             
         pass       
@@ -142,7 +160,7 @@ class ThreadClass(QThread):
     # register it in the context of QML
     engine.rootContext().setContextProperty("dashboard", dashboard)
     #load qml file into engine
-    engine.load(QUrl('main1.qml'))
+    engine.load(QUrl('main2.qml'))
 
 
     

@@ -10,8 +10,6 @@ ApplicationWindow {
     width: 1271
     height: 800
     color: "#000000"
-    property alias backgound1: backgound1
-    property alias currentneede: currentneede
     title: qsTr("Solar Car Challenge")
 
 
@@ -21,7 +19,7 @@ ApplicationWindow {
 
 
     Image {
-        id: image
+        id: logo
         x: 586
         y: -12
         width: 808
@@ -32,7 +30,7 @@ ApplicationWindow {
         source: "Logo.png"
     }
     Image {
-        id: backgound1
+        id: background1
         x: -212
         y: 4
         width: 936
@@ -45,7 +43,7 @@ ApplicationWindow {
         source: "background.png"
     }
     Image {
-        id: backgound2
+        id: background2
         x: 232
         y: 32
         width: 817
@@ -56,7 +54,7 @@ ApplicationWindow {
         source: "background.png"
     }
     Image {
-        id: backgound3
+        id: background3
         x: 642
         y: -51
         width: 725
@@ -82,48 +80,48 @@ ApplicationWindow {
         source: "background.png"
     }
 
-            Image {
-                id: speedimage
-                width: 456
-                height: 350
-                anchors.verticalCenterOffset: 0
-                anchors.horizontalCenterOffset: -359
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                fillMode: Image.PreserveAspectFit
-                source: "Speedometer.png"
-                Image {
-                    id: speedneedle
-                    width: 350
-                    height: 350
-                    z: 2
-                    anchors.verticalCenterOffset: -1
-                    anchors.horizontalCenterOffset: 1
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    rotation: 0
-                    fillMode: Image.PreserveAspectFit
-                    source: "largeneedle.png"
-                    }
-
-                    Text {
-                        id: speedtext
-                        x: 164
-                        y: 258
-                        width: 45
-                        height: 40
-                        color: "#ffffff"
-                        text: qsTr("0")
-                        renderType: Text.NativeRendering
-                        horizontalAlignment: Text.AlignHCenter
-                        anchors.verticalCenterOffset: 75
-                        anchors.horizontalCenterOffset: 1
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        font.pixelSize: 40
-                    }
-                
+     Image {
+          id: speedimage
+          width: 456
+          height: 350
+          anchors.verticalCenterOffset: 0
+          anchors.horizontalCenterOffset: -359
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.horizontalCenter: parent.horizontalCenter
+          fillMode: Image.PreserveAspectFit
+          source: "Speedometer.png"
+          Image {
+             id: speedneedle
+             width: 350
+             height: 350
+             z: 2
+             anchors.verticalCenterOffset: -1
+             anchors.horizontalCenterOffset: 1
+             anchors.verticalCenter: parent.verticalCenter
+             anchors.horizontalCenter: parent.horizontalCenter
+             rotation: 0
+             fillMode: Image.PreserveAspectFit
+             source: "largeneedle.png"
             }
+
+         Text {
+            id: speedtext
+            x: 164
+            y: 258
+            width: 45
+            height: 40
+            color: "#ffffff"
+            text: qsTr("0")
+            renderType: Text.NativeRendering
+            horizontalAlignment: Text.AlignHCenter
+            anchors.verticalCenterOffset: 75
+            anchors.horizontalCenterOffset: 1
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 40
+             }
+                
+         }
 
     Image {
         id: currentimage
@@ -131,7 +129,7 @@ ApplicationWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         width: 350
         height: 350
-        source: "Curreent Guage.png"
+        source: "CurreentGuage.png"
 
         Image {
             id: currentneede
@@ -149,17 +147,17 @@ ApplicationWindow {
             source: "largeneedle.png"
             }
 
-            Text {
-                id: currenttext
-                x: 164
-                y: 245
-                color: "#ffffff"
-                text: qsTr("0")
-                anchors.verticalCenterOffset: 75
-                anchors.horizontalCenterOffset: 1
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 40
+         Text {
+           id: currenttext
+           x: 164
+           y: 245
+           color: "#ffffff"
+           text: qsTr("0")
+           anchors.verticalCenterOffset: 75
+           anchors.horizontalCenterOffset: 1
+           anchors.horizontalCenter: parent.horizontalCenter
+           anchors.verticalCenter: parent.verticalCenter
+           font.pixelSize: 40
             }
     }
 
@@ -173,7 +171,7 @@ ApplicationWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenterOffset: -157
         anchors.verticalCenter: parent.verticalCenter
-        source: "Aux Battery  Guage.png"
+        source: "AuxBatteryGuage.png"
 
         Image {
             id: auxneedle
@@ -189,18 +187,18 @@ ApplicationWindow {
             source: "newnwwdle.png"
             }
 
-            Text {
-                id: auxtext
-                x: 101
-                y: 163
-                color: "#ffffff"
-                text: qsTr("0")
-                anchors.verticalCenterOffset: 54
-                anchors.horizontalCenterOffset: 0
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: 27
+        Text {
+            id: auxtext
+            x: 101
+            y: 163
+            color: "#ffffff"
+            text: qsTr("0")
+            anchors.verticalCenterOffset: 54
+            anchors.horizontalCenterOffset: 0
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: 27
             }
         
     }
@@ -215,7 +213,7 @@ ApplicationWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenterOffset: 108
         anchors.verticalCenter: parent.verticalCenter
-        source: "Main Battery  Guage.png"
+        source: "MainBatteryGuage.png"
 
         Image {
             id: mainneedle
@@ -230,17 +228,17 @@ ApplicationWindow {
             source: "newnwwdle.png"
             }
 
-            Text {
-                id: maintext
-                x: 101
-                y: 153
-                color: "#ffffff"
-                text: qsTr("0")
-                anchors.verticalCenterOffset: 38
-                anchors.horizontalCenterOffset: 0
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 26
+         Text {
+            id: maintext
+            x: 101
+            y: 153
+            color: "#ffffff"
+            text: qsTr("0")
+            anchors.verticalCenterOffset: 38
+            anchors.horizontalCenterOffset: 0
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 26
             }
         
     }
@@ -282,17 +280,12 @@ Connections {
         //through arguments=['maincur']
             currenttext.text = maincur
             currentneede.rotation=currentangle(maincur)
-         
             }
         onCarSpeed: {
         // through arguments=['speedmph']
             speedtext.text = speedmph
             speedneedle.rotation=speedangle(speedmph)
-         
             }
-            
-            
-    
     }
 
 
