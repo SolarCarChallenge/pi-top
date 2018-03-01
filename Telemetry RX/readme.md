@@ -1,5 +1,7 @@
 # Welcome to the pi-top Reciever Application
 
+### **This code is not fully functional.  It right now it only causes the gauges to sweep. A functional example should be available in a week or two.***  
+
 ![Logo](https://github.com/SolarCarChallenge/pi-top/blob/master/Telemetry%20RX/Solar%20Car%20Challenge%202_28_2018%204_22_34%20PM.png?raw=true)
 
 
