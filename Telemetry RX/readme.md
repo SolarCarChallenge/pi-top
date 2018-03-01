@@ -25,9 +25,9 @@ sudo apt-get install qml-module-qtquick2
 
 To start the program, open terminal, change director to the folder where the program is store using the CD command, and start the program with the following command.
 
-...
+```
 sudo python3 main.py
-...
+```
 
 ## Customization
 
@@ -49,3 +49,17 @@ If you change the value of the gauge, you will need to recalibrate the gauge to 
 ```
 
 The first value, in this example 7, is the lowest value on the face.  It corrolates to a needle rotateion of -48 degrees.  The second value, 17 in this example is the highest value on the face.  On this gauge that corrolates to 229 degrees.  The last statement is the most important.  It is how the rotation is caluclated for any value between the high and low numbers on the gauge face.  The divisions on the gauge face are all equal.  As a result we can draw a line between the two points.  You might recognize the formula y=mx+b from math class.  Solving for the equation of the line allows us to calculate the function that returns an angle for a given value.  The excel spreedsheet "gaugecalibration.xlsx" in this folder can be used to help with the calculation.
+
+
+## Hardware
+
+This project was origionally designed around Arduino hardware sourced from Adafruit.  To copy the origional, you will need:
+1 x [GPS Module](https://www.adafruit.com/product/3133)
+2 x [Arduino LORA Feather](https://www.adafruit.com/product/3078)
+1 x [ADS1115 Analogue to digital converter](https://www.adafruit.com/product/1085) or [ADS1015](https://www.adafruit.com/product/1083)
+1 x proto board
+Misc wire, resisters, and capactors.
+
+
+Building this project from scratch is a fun and educational experiance.  However, our partnership with pi-top is allowing us to develop a custom telemetry board targeted specifically at solar cars.  This is a very exciting oppurtunity and we look forward to announcing more details shortly.
+
