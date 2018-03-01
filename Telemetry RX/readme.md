@@ -1,6 +1,12 @@
 # Welcome to the pi-top Reciever Application
 
- ## Required Modules
+![Logo](https://github.com/SolarCarChallenge/pi-top/blob/master/Telemetry%20RX/Solar%20Car%20Challenge%202_28_2018%204_22_34%20PM.png?raw=true)
+
+
+
+
+
+## Required Modules
 
  For this application, you will need to add some additional modules not included with the pi-top OS.  You can load them using apt-get from the command line.  To download the modules, open the command line and type:
 
