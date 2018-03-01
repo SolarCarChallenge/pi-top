@@ -58,8 +58,8 @@ This project was origionally designed around Arduino hardware sourced from Adafr
 2. 2 x [Arduino LORA Feather](https://www.adafruit.com/product/3078)
 3. 1 x [ADS1115 Analogue to digital converter](https://www.adafruit.com/product/1085) or [ADS1015](https://www.adafruit.com/product/1083)
 4. 1 x proto board
-Misc wire, resisters, and capactors.
+5. Misc wire, resisters, and capactors.
 
 
-Building this project from scratch is a fun and educational experiance.  However, our partnership with pi-top is allowing us to develop a custom telemetry board targeted specifically at solar cars.  This is a very exciting oppurtunity and we look forward to announcing more details shortly.
+Building this project from scratch is a fun and educational experiance.  However, our partnership with pi-top is allowing us to develop a custom telemetry board targeted specifically at solar cars.  This will greatly simplify integrating telemetry into you race.  This is a very exciting oppurtunity and we look forward to announcing more details shortly.
 
