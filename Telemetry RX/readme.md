@@ -21,6 +21,14 @@ sudo apt-get install qtquickcontrols5-*
 sudo apt-get install qml-module-qtquick2
 ```
 
+## Required Modules
+
+To start the program, open terminal, change director to the folder where the program is store using the CD command, and start the program with the following command.
+
+...
+sudo python3 main.py
+...
+
 ## Customization
 
 You will probably want to customize the application to your car and voltage.  The images are stored in the /images folder.  You can modify them directly.  However, it is easier to modify the vector images that were used to produce the .png files.  These files can be found in the /vector images folder.  I used the GNU program [Inkskape](https://inkscape.org/en/) to create the guages.  Using a vector program you can easily change the text on the gauge faces, the color, or the rings.
