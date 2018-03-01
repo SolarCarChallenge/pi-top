@@ -54,10 +54,10 @@ The first value, in this example 7, is the lowest value on the face.  It corrola
 ## Hardware
 
 This project was origionally designed around Arduino hardware sourced from Adafruit.  To copy the origional, you will need:
-1 x [GPS Module](https://www.adafruit.com/product/3133)
-2 x [Arduino LORA Feather](https://www.adafruit.com/product/3078)
-1 x [ADS1115 Analogue to digital converter](https://www.adafruit.com/product/1085) or [ADS1015](https://www.adafruit.com/product/1083)
-1 x proto board
+1. 1 x [GPS Module](https://www.adafruit.com/product/3133)
+2. 2 x [Arduino LORA Feather](https://www.adafruit.com/product/3078)
+3. 1 x [ADS1115 Analogue to digital converter](https://www.adafruit.com/product/1085) or [ADS1015](https://www.adafruit.com/product/1083)
+4. 1 x proto board
 Misc wire, resisters, and capactors.
 
 
