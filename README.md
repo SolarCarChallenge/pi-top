@@ -8,17 +8,17 @@ GitHub offers an excellent free student pack with tons of useful products and se
 
 ## About this site
 
-GitHub is a collaberative site.  Here you can find examples of code that you can borrow (fork) to help develop your own idea.  You can also contribute (pull request) to other peoples projects help them create a better product.
+GitHub is a collaborative site.  Here you can find examples of code that you can borrow (fork) to help develop your own ideas.  You can also contribute (pull request) to other people's projects help them create a better product.
 
-The Solar Car Challenge staff have developed some applications to assist yor race effort.  You can use them as is, or customize them to your specific needs.  You can also contribute your own applications to help improve the race.
+The Solar Car Challenge staff have developed some applications to assist your race effort.  You can use them as is, or customize them to your specific needs.  You can also contribute your own applications to help improve the race.
 
 ## Applications
-1. Telemetry TX - This is the program loaded on the arduino that collects telemetry in the solar car and transimits it to the pi-top
+1. Telemetry TX - This is the program loaded on the Arduino that collects telemetry in the solar car and transimits it to the pi-top.
 2. Telemetry RX - This program runs on the pi-top.  It recieves the data from the car, stores it, and displays it to the user.
 
 
 
-Please fork our project and customize it to your needs.  If you have problem or questions you can submit and track them on the issues tab.  If you think you can make our products better please submit a pull request.
+Please fork our project and customize it to your needs.  If you have problems or questions, you can submit and track them on the issues tab.  If you think you can make our products better, please submit a pull request.
 
 
 
