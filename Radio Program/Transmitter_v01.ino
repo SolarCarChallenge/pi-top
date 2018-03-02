@@ -1,11 +1,11 @@
 
 #include <LiquidCrystal_I2C.h>
-
 #include <Adafruit_GPS.h>
 #include <Wire.h>
 #include <Adafruit_ADS1015.h>
 #include <SPI.h>
 #include <RH_RF95.h>
+
 
 // what's the name of the hardware serial port?
 #define GPSSerial Serial1
@@ -23,8 +23,12 @@
 
 //Define Scaling factors for sensors
 #define PrimaryCorrect 0.0653
-#define MotorCurrentCorrect .0820
-#define ArrayCurrentCorrect .0820
+#define Shunt .0005
+
+//Defines Client and server
+#define CLIENT_ADDRESS 1
+#define SERVER_ADDRESS 2
+
 
 //Create the Radio
 RH_RF95 rf95(RFM95_CS, RFM95_INT);
@@ -35,6 +39,9 @@ Adafruit_ADS1015 ads1015;
 // Connect to the GPS on the hardware port
 Adafruit_GPS GPS(&GPSSerial);
 
+
+
+//Setup for the LCD matrix
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
 
@@ -54,11 +61,7 @@ void setup()
 
   lcd.clear();
   lcd.print("Booting");
-  delay(1000);
-  lcd.clear();
-  
-
-  
+ 
   //********Begin the Analog to digital converter*******
   ads1015.begin();
   
@@ -71,7 +74,6 @@ void setup()
      
   // 9600 NMEA is the default baud rate for Adafruit MTK GPS's- some use 4800
   GPS.begin(9600);
-  // uncomment this line to turn on RMC (recommended minimum) and GGA (fix data) including altitude
   GPS.sendCommand(PMTK_SET_NMEA_OUTPUT_RMCGGA);
   // uncomment this line to turn on only the "minimum recommended" data
   //GPS.sendCommand(PMTK_SET_NMEA_OUTPUT_RMCONLY);
@@ -123,7 +125,7 @@ void setup()
 
 void loop() // run over and over again
 {
-  int16_t adc0, adc1, adc2, adc3;
+  int16_t adc0, adc1, adc2, adc3, current;
   
   // read data from the GPS in the 'main loop'
    char c = GPS.read();
@@ -141,48 +143,30 @@ void loop() // run over and over again
       adc3 = ads1015.readADC_SingleEnded(3);
 
       
-
+      current = ((adc3*PrimaryCorrect)-(adc3*PrimaryCorrect))*(1/Shunt);
+      
       if (GPS.fix) {
-      Serial.print("Fix Time: ");
-      Serial.print(GPS.hour, DEC); Serial.print(':');
-      Serial.print(GPS.minute, DEC); Serial.print(':');
-      Serial.println(GPS.seconds, DEC);
-
-      Serial.print("Aux"); Serial.println(adc0);
-      Serial.print("Main Battery "); Serial.println(adc1);
-      Serial.print("AIN2: "); Serial.println(adc2);
-      Serial.print("AIN3: "); Serial.println(adc3);
-      Serial.print("Location: ");
-      Serial.print(GPS.latitude, 4); Serial.print(GPS.lat);
-      Serial.print(", ");
-      Serial.print(GPS.longitude, 4); Serial.println(GPS.lon);
-      Serial.print("Speed (knots): "); Serial.println(GPS.speed);
-      Serial.print("Angle: "); Serial.println(GPS.angle);
-      Serial.print("Altitude: "); Serial.println(GPS.altitude);
-      Serial.print("Satellites: "); Serial.println((int)GPS.satellites);
-      Serial.println("");
-
+     
       lcd.clear();
       lcd.setCursor(0, 0);
       lcd.print("Aux  Volt: " + String(adc0*PrimaryCorrect));
       lcd.setCursor(0, 1);
       lcd.print("Main Volt: " + String(adc1*PrimaryCorrect));
       lcd.setCursor(0, 2);
-      lcd.print("Motor: " + String(round((adc2*MotorCurrentCorrect)*10)/10));
+      lcd.print("Current: " + String(round((current)*10)/10));
       lcd.setCursor(0, 3);
-      lcd.print("Array: " + String(round((adc3*ArrayCurrentCorrect)*10)/10));
+      lcd.print("Speed: " + String(round((GPS.speed)*10)/10));
 
 
       uint8_t data[120];
 
       //Create Output sting
-      String FinalString= String(GPS.hour)+":"+String(GPS.minute)+":"+String(GPS.seconds)+ ", " + String((adc0*PrimaryCorrect),4)+ ", " + String((adc1*PrimaryCorrect),4) + ", " + String((adc2*MotorCurrentCorrect),4) + ", "+ String(adc3*ArrayCurrentCorrect) + ", "+ String(GPS.latitude,4) + String(GPS.lat) + ", " + String(GPS.longitude,4) + String(GPS.lon) + ", " + String(GPS.speed);
+      String FinalString= String(GPS.hour)+":"+String(GPS.minute)+":"+String(GPS.seconds)+ ", " + String((adc0*PrimaryCorrect),4)+ ", " + String((adc1*PrimaryCorrect),4) + ", " + String((current),4) + ", "+ String(GPS.latitude,4) + String(GPS.lat) + ", " + String(GPS.longitude,4) + String(GPS.lon) + ", " + String(GPS.speed);
  
     //convert output sting to bytes (uint8_t) that can be transmitted
      FinalString.toCharArray(data, FinalString.length());
 
     //transmit the data string
-    Serial.println("sending");
     rf95.send((uint8_t *)data, sizeof(data));
     GPS.fix =false ;
     

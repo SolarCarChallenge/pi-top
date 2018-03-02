@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-If you are not framiliar with GitHub, the [intro to GitHub](https://services.github.com/on-demand/intro-to-github/) is a very useful tool.
+If you are not familiar with GitHub, the [intro to GitHub](https://services.github.com/on-demand/intro-to-github/) is a very useful tool.
 
 GitHub offers an excellent free student pack with tons of useful products and services [available here](https://education.github.com/pack)
 
@@ -13,8 +13,8 @@ GitHub is a collaborative site.  Here you can find examples of code that you can
 The Solar Car Challenge staff have developed some applications to assist your race effort.  You can use them as is, or customize them to your specific needs.  You can also contribute your own applications to help improve the race.
 
 ## Applications
-1. Telemetry TX - This is the program loaded on the Arduino that collects telemetry in the solar car and transimits it to the pi-top.
-2. Telemetry RX - This program runs on the pi-top.  It recieves the data from the car, stores it, and displays it to the user.
+1. pi-top program - This program runs on the pi-top.  It receives the data from the car, stores it, and displays it to the user.
+2. Radio program - there are two Arduino programs in this folder that create the radio bridge.  One for the car side that collects and transmits the information and one for the pi-top which receives the information and feed it to the pi-top.
 
 
 
@@ -29,4 +29,3 @@ Please fork our project and customize it to your needs.  If you have problems or
 
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
