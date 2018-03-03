@@ -8,20 +8,29 @@ from dateutil.parser import parse
 import time
 
 from PyQt5.QtCore import QCoreApplication, Qt, QUrl
-from PyQt5.QtGui import QGuiApplication
+from PyQt5.QtGui import QGuiApplication, QIcon
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QThread
+from PyQt5.Qt import QStringListModel
 
+
+
+
+
+ampHourvalue=50
+batteryCapacity=100
+
+#define and open the serial port
+ser=serial.Serial('COM6')
 # Create an instance of the application
 app = QGuiApplication(sys.argv)
 # Create QML engine
 engine = QQmlApplicationEngine()
 
+
+
 class Dash(QObject):
 
-    def __init__(self):
-        QObject.__init__(self)
-        
     #create the signals that change the GUI     
     auxVoltage = pyqtSignal(float, arguments=['auxvolt'])
     mainVoltage = pyqtSignal(float, arguments=['mainvolt'])
@@ -29,7 +38,22 @@ class Dash(QObject):
     carSpeed = pyqtSignal(float, arguments=['speedmph'])
     ampHour = pyqtSignal(float, arguments=['amphr'])
     
-    
+    @pyqtSlot()
+    def reset(self):
+        
+        global ampHourvalue
+        global batteryCapacity  
+        ampHourvalue=batteryCapacity #put amp hour capacity here
+        self.ampHour.emit(ampHourvalue)
+    @pyqtSlot(str)
+    def set(self,value):
+        print("Hello World")
+        global ampHourvalue
+        print(value)
+        
+        ampHourvalue=float(value)
+        
+        self.ampHour.emit(ampHourvalue)
 
 # create a dashboard object
 dashboard = Dash()
@@ -61,72 +85,57 @@ class ThreadClass(QThread):
 
 
     def run(self):
-        auxvalue=7.0
-        auxcountup=True
-        mainvalue=38
-        maincountup=True
-        currentvalue=-50
-        currentcountup=True
-        speedvalue=0
-        speedcountup=True
-        amphourvalue=0
-        amphourcountup=True
+        #This implementation of amp hours needs work
+        global ampHourvalue  
+        global batteryCapacity
+        
+        try:
+            wb=load_workbook("History.xls") #attemps to open the history excel file
+        except:
+            wb=Workbook() #creates and empty excel workbook if histortory is not found
+    
+        
+        WorkSheetName=datetime.date.today() #get todays date
+        
+        try:
+            ws=wb("%s")
+        except:
+            ws = wb.create_sheet("%s" %WorkSheetName) #create worksheet with the date as tittle
+        
+        firstrun=True  # logical flag to prevent errors on first run
+        
+
+        ws['A1']="Time"
+        ws['B1']="Aux Voltage"
+        ws['C1']="Main Voltage"
+        ws['D1']="Current"
+        ws['E1']="Lat"
+        ws['F1']="Lon"
+        ws['G1']='Speed'
+            
+        
+        
+        
         
         while True:
-            if auxcountup:
-                auxvalue+=.1
-            else:
-                auxvalue-=.1
+            data=ser.readline(120) #read the stream
+            data=data.decode() #convert stream from bytes to characters
+            data=StringIO(data)#convert a stream of characters into string
+            dataset=csv.reader(data, delimiter= ',') #read the CSV string into individual array
+            dataset=list(dataset) #convert the array to list
+            print(dataset)
             
-            if auxvalue > 17:
-                auxcountup = False
-            if auxvalue < 7:
-                auxcountup = True
-                
-            if maincountup:
-                mainvalue+=.2
-            else:
-                mainvalue-=.2
+            #write to excel log
+            ws.append(dataset[0])
+            wb.save("History.xls")
             
-            if mainvalue > 58:
-                maincountup = False
-            if mainvalue < 38:
-                maincountup = True
-                
-            if currentcountup:
-                currentvalue+=1
-            else:
-                currentvalue-=1
-            
-            if currentvalue > 50:
-                currentcountup = False
-            if currentvalue < -50:
-                currentcountup = True
-                
-            if speedcountup:
-               speedvalue+=.6
-            else:
-                speedvalue-=.6
-            
-            if speedvalue > 60:
-                speedcountup = False
-            if speedvalue < 0:
-                speedcountup = True
-                
-            if amphourcountup:
-               amphourvalue+=1
-            else:
-                amphourvalue-=1
-            
-            if amphourvalue > 99:
-                amphourcountup = False
-            if amphourvalue < 0:
-                amphourcountup = True
-                
-                
-                
-                
-                
+            #extract individual data points
+            timestamp=(dataset[0][0])
+            auxvalue=float(dataset[0][1])
+            mainvalue=float(dataset[0][2])
+            currentvalue=float(dataset[0][3])
+            speedvalue=float(dataset[0][6])
+                        
                 
                 
             
@@ -134,18 +143,37 @@ class ThreadClass(QThread):
             mainvalue=round(mainvalue,2)
             currentvalue=round(currentvalue,2)
             speedvalue=round(speedvalue,2)
-            amphourvalue=round(amphourvalue,2)
+            
  
             # Emit the signals
             self.auxVoltage.emit(auxvalue)
             self.mainVoltage.emit(mainvalue)
             self.mainCurrent.emit(currentvalue)
             self.carSpeed.emit(speedvalue)
-            self.ampHour.emit(amphourvalue)
+
             
+            if firstrun:
+                firstrun=False
+                timestamp=parse(timestamp)
             
+            #calc time between last two records    
+            else:
+                timestamp=parse(timestamp)
+                timedelta=timestamp-oldtimestamp          
+                #calculate the number of amphours used on this interval
+                currentused= (currentvalue)*(float(timedelta.seconds)/3600)
+                #subtract the number of amphours used from the remaining amount
+                ampHourvalue = ampHourvalue - currentused
+                if ampHourvalue > batteryCapacity:
+                    ampHourvalue = batteryCapacity
+                
+                ampHourvalue=round(ampHourvalue,2)
+                self.ampHour.emit(ampHourvalue)
+
             
-            time.sleep(.5)
+            oldtimestamp=timestamp
+            
+
 
             
         pass       

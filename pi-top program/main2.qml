@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
+import QtQuick.Dialogs 1.2
 
 
 
@@ -11,6 +12,51 @@ ApplicationWindow {
     height: 800
     color: "#000000"
     title: qsTr("Solar Car Challenge")
+    
+
+
+
+    Dialog {
+        id:amphourwindow
+        visible: false
+        title: "Set AmpHours"
+
+
+
+        onAccepted: console.log("Hello")
+
+        contentItem: Rectangle {
+            width: 300;
+            height: 200
+            Text {
+                y:30
+                font.pointSize: 15
+                text: "Enter AmpHours"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+            TextField {
+                y: 60
+                id:enterfield
+                placeholderText: qsTr("Enter name")
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                onAccepted:dashboard.set(enterfield.text)
+            }
+
+            Button {
+                id: yesplease
+                y:90
+                width: 100
+                height: 30
+                text: qsTr("Set AmpHours")
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                onClicked: dashboard.set(enterfield.text)
+
+            }
+
+        }
+    }
 
 
 
@@ -267,23 +313,15 @@ ApplicationWindow {
 
     Button {
         id: startbtn
-        x: 275
-        y: 627
+        x: 210
+        y: 652
         width: 134
         height: 56
         text: qsTr("Start")
     }
 
 
-
-    Button {
-        id: swwepbtn
-        x: 116
-        y: 627
-        width: 134
-        height: 56
-        text: qsTr("Sweep")
-    }
+    
 
 
 
@@ -294,6 +332,10 @@ ApplicationWindow {
         y: 149
         width: 112
         height: 396
+        anchors.verticalCenterOffset: -95
+        anchors.horizontalCenterOffset: 521
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
         fillMode: Image.PreserveAspectFit
         source: "images/battery_low.png"
 
@@ -318,6 +360,20 @@ ApplicationWindow {
             text: qsTr("AmpHour")
             anchors.horizontalCenter: parent.horizontalCenter
             font.pixelSize: 25
+        }
+
+        Button {
+            id: setamphr
+            x: -17
+            y: 434
+            width: 134
+            height: 56
+            text: qsTr("Set AmpHours")
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: -94
+            anchors.horizontalCenter: parent.horizontalCenter
+            onClicked: amphourwindow.open()
+
         }
     }
 
@@ -387,6 +443,7 @@ ApplicationWindow {
         }
 
     }
+    
 
     Image {
         id: challenglogo
@@ -400,6 +457,7 @@ ApplicationWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         source: "images/Challengelogo.png"
     }
+
     Connections {
         target: dashboard
         ignoreUnknownSignals: true
@@ -426,8 +484,6 @@ ApplicationWindow {
         }
 
     }
-
-
 
 
 }
