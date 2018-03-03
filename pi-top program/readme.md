@@ -1,8 +1,6 @@
 # Welcome to the pi-top Reciever Application
 
-### **This code is not fully functional.  It right now it only causes the gauges to sweep. A functional example should be available in a week or two.***  
-
-![Logo](https://github.com/SolarCarChallenge/pi-top/blob/master/Telemetry%20RX/Solar%20Car%20Challenge%202_28_2018%204_22_34%20PM.png?raw=true)
+![Logo](https://github.com/SolarCarChallenge/pi-top/blob/master/pi-top%20program/Solar%20Car%20Challenge%202_28_2018%204_22_34%20PM.png?raw=true)
 
 ## Required Modules
 
@@ -59,7 +57,7 @@ This project was origionally designed around Arduino hardware sourced from Adafr
 
 *note on suppliers.  The Solar car challenge does not endorse any particualr supllier.  I (Jarrett) buy a lot of components from Adafruit as a I have had a very low rate of DOA parts from them.  They are however one of the most expensive suppliers.  Almost identical parts can be sources from Amazon, eBay, or Aliexpress mcuh cheaper.
 
-![breakout board](https://github.com/SolarCarChallenge/pi-top/blob/master/Telemetry%20RX/images/Layout2withbreadboard.png?raw=true)
+![breakout board]https://github.com/SolarCarChallenge/pi-top/blob/master/pi-top%20program/images/Layout2withbreadboard.png?raw=true)
 
 Building this project from scratch is a fun and educational experiance.  However, our partnership with pi-top is allowing us to develop a custom telemetry board targeted specifically at solar cars.  This will greatly simplify integrating telemetry into you race.  This is a very exciting oppurtunity and we look forward to announcing more details shortly.
 
@@ -67,4 +65,4 @@ Building this project from scratch is a fun and educational experiance.  However
 
 An Arduino can only safely handle 5 volts.  This becomes a problem if you want to measure a signal that is 48 volts.  Thankfully there is a simple curcuit to safely step voltage down to a safe range for the microproccesser. 
 
-![voltage divider](https://github.com/SolarCarChallenge/pi-top/blob/master/Telemetry%20RX/images/Voltagedivider.png?raw=true)
+![voltage divider](https://github.com/SolarCarChallenge/pi-top/blob/master/pi-top%20program/images/Voltagedivider.png?raw=true)
