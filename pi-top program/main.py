@@ -2,7 +2,7 @@ import sys
 import serial
 from io import StringIO
 import csv
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook
 import datetime
 from dateutil.parser import parse
 import time
@@ -17,7 +17,7 @@ from PyQt5.Qt import QStringListModel
 
 
 
-ampHourvalue=50
+ampHourvalue=0
 batteryCapacity=100
 
 #define and open the serial port
@@ -40,20 +40,17 @@ class Dash(QObject):
     
     @pyqtSlot()
     def reset(self):
-        
         global ampHourvalue
         global batteryCapacity  
         ampHourvalue=batteryCapacity #put amp hour capacity here
         self.ampHour.emit(ampHourvalue)
+   
+    
     @pyqtSlot(str)
-    def set(self,value):
-        print("Hello World")
-        global ampHourvalue
-        print(value)
-        
-        ampHourvalue=float(value)
-        
-        self.ampHour.emit(ampHourvalue)
+    def set(self,value):   #allows the user to update the amphour counter
+        global ampHourvalue  #pulls in global variable
+        ampHourvalue=float(value)  #converts value from string to number
+        self.ampHour.emit(ampHourvalue)  #sends the signal to update display.
 
 # create a dashboard object
 dashboard = Dash()
@@ -75,6 +72,7 @@ class ThreadClass(QThread):
     def __init__(self, parent=None):
         super(ThreadClass, self).__init__(parent)     
         
+        #connects the signals from the thread to the object
         self.auxVoltage.connect(dashboard.auxVoltage)
         self.mainVoltage.connect(dashboard.mainVoltage)
         self.mainCurrent.connect(dashboard.mainCurrent)
@@ -90,7 +88,7 @@ class ThreadClass(QThread):
         global batteryCapacity
         
         try:
-            wb=load_workbook("History.xls") #attemps to open the history excel file
+            wb=load_workbook("History.xlsx") #attemps to open the history excel file
         except:
             wb=Workbook() #creates and empty excel workbook if histortory is not found
     
@@ -98,9 +96,9 @@ class ThreadClass(QThread):
         WorkSheetName=datetime.date.today() #get todays date
         
         try:
-            ws=wb("%s")
+            ws=wb["%s" %WorkSheetName]
         except:
-            ws = wb.create_sheet("%s" %WorkSheetName) #create worksheet with the date as tittle
+            ws = wb.create_sheet("%s" %WorkSheetName) #create worksheet with the date as title
         
         firstrun=True  # logical flag to prevent errors on first run
         
@@ -112,6 +110,7 @@ class ThreadClass(QThread):
         ws['E1']="Lat"
         ws['F1']="Lon"
         ws['G1']='Speed'
+        ws['F1']="Amphours"
             
         
         
@@ -126,8 +125,7 @@ class ThreadClass(QThread):
             print(dataset)
             
             #write to excel log
-            ws.append(dataset[0])
-            wb.save("History.xls")
+
             
             #extract individual data points
             timestamp=(dataset[0][0])
@@ -170,10 +168,12 @@ class ThreadClass(QThread):
                 ampHourvalue=round(ampHourvalue,2)
                 self.ampHour.emit(ampHourvalue)
 
+        
+            oldtimestamp=timestamp  #saves the current time stamp for use in the next calculation
             
-            oldtimestamp=timestamp
-            
-
+            dataset[0].append(ampHourvalue)   #adds the calculated amphout value to the dataset
+            ws.append(dataset[0])     #appends the current times dataset to the spreedsheet
+            wb.save('History.xlsx')    #saves the spreadsheet
 
             
         pass       
