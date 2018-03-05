@@ -16,6 +16,10 @@ The Solar Car Challenge staff have developed some applications to assist your ra
 1. pi-top program - This program runs on the pi-top.  It receives the data from the car, stores it, and displays it to the user.
 2. Radio program - there are two Arduino programs in this folder that create the radio bridge.  One for the car side that collects and transmits the information and one for the pi-top which receives the information and feed it to the pi-top.
 
+## Helpful Spreadsheets
+
+1. Carsetup.ods - This spreadsheet tracks the setup and prepration of the solar car.  It has a simple solution for measruing and calculating fron end alignment.  It can also be used to track usage and trends on the solar car.
+
 
 
 Please fork our project and customize it to your needs.  If you have problems or questions, you can submit and track them on the issues tab.  If you think you can make our products better, please submit a pull request.
