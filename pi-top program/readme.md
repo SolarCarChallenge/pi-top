@@ -57,7 +57,7 @@ This project was origionally designed around Arduino hardware sourced from Adafr
 
 *note on suppliers.  The Solar car challenge does not endorse any particualr supllier.  I (Jarrett) buy a lot of components from Adafruit as a I have had a very low rate of DOA parts from them.  They are however one of the most expensive suppliers.  Almost identical parts can be sources from Amazon, eBay, or Aliexpress mcuh cheaper.
 
-![breakout board]https://github.com/SolarCarChallenge/pi-top/blob/master/pi-top%20program/images/Layout2withbreadboard.png?raw=true)
+![breakout board](https://github.com/SolarCarChallenge/pi-top/blob/master/pi-top%20program/images/Layout2withbreadboard.png?raw=true)
 
 Building this project from scratch is a fun and educational experiance.  However, our partnership with pi-top is allowing us to develop a custom telemetry board targeted specifically at solar cars.  This will greatly simplify integrating telemetry into you race.  This is a very exciting oppurtunity and we look forward to announcing more details shortly.
 
