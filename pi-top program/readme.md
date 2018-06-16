@@ -7,12 +7,16 @@
  For this application, you will need to add some additional modules not included with the pi-top OS.  You can load them using apt-get from the command line.  To download the modules, open the command line and type:
 
 ```
+sudo apt-geg update
+sudo apt-get install qt5-default pyqt5-dev pyqt5-dev-tools
 sudo apt-get install python3-pyqt5
 sudo apt-get install qtdeclarative5-*
 sudo apt-get install qml-module-qtquick*
-sudo apt-get install qtquick1-*
 sudo apt-get install qtquickcontrols5-*
 sudo apt-get install qml-module-qtquick2
+sudo apt-get install python3-openpyxl
+sudo pip3 install python-dateutil
+sudo apt-get install python3-pyqt5.qtquick`
 ```
 
 ## Required Modules
