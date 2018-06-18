@@ -1,4 +1,4 @@
-# **There was a major OS update to the pi-top since this was written.  Embarrasingly it no longer works on the pi-top.  It will still work on windows.  New version coming shortly**
+# ^^^^^^There was a major OS update to the pi-top since this was written.  Embarrassingly it no longer works on the pi-top.  It will still work on Windows though.  New version coming shortly^^^^^^
 
 
 # Welcome to the pi-top Reciever Application
