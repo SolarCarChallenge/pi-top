@@ -1,3 +1,6 @@
+#******There was a major OS update to the pi-top since this was written.  Embarrasingly it no longer works on the pi-top.  It will still work on windows.  New version coming shortly********
+
+
 # Welcome to the pi-top Reciever Application
 
 ![Logo](https://github.com/SolarCarChallenge/pi-top/blob/master/pi-top%20program/Solar%20Car%20Challenge%202_28_2018%204_22_34%20PM.png?raw=true)
