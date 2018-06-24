@@ -1,16 +1,22 @@
-# ^^^^^^There was a major OS update to the pi-top since this was written.  Embarrassingly it no longer works on the pi-top.  It will still work on Windows though.  New version coming shortly^^^^^^
-
-
 # Welcome to the pi-top Reciever Application
 
 ![Logo](https://github.com/SolarCarChallenge/pi-top/blob/master/pi-top%20program/Solar%20Car%20Challenge%202_28_2018%204_22_34%20PM.png?raw=true)
 
+## Enable GL driver
+
+Open a terminal windo and type
+
+```sudo raspi-config```
+
+Select option 7 "Advadanced Optiosn" and then select A7 "GL Driver".  You want option G1 GL (Full KMS) this will require a restart.  On my computer this also caused the background image on the desktop not to load.  Select another image and it will return to normal.
+
+
 ## Required Modules
 
- For this application, you will need to add some additional modules not included with the pi-top OS.  You can load them using apt-get from the command line.  To download the modules, open the command line and type:
+For this application, you will need to add some additional modules not included with the pi-top OS.  You can load them using apt-get from the command line.  To download the modules, open the command line and type:
 
 ```
-sudo apt-geg update
+sudo apt-get update
 sudo apt-get install qt5-default pyqt5-dev pyqt5-dev-tools
 sudo apt-get install python3-pyqt5
 sudo apt-get install qtdeclarative5-*
