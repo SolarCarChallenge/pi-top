@@ -12,7 +12,12 @@ ApplicationWindow {
     height: 800
     color: "#000000"
     title: qsTr("Solar Car Challenge")
-    
+
+      Item{
+      property var aCapacity: 200
+
+
+      }
 
 
 
@@ -160,6 +165,8 @@ ApplicationWindow {
             rotation: -38
             fillMode: Image.PreserveAspectFit
             source: "images/largeneedle.png"
+
+            Behavior on rotation { SmoothedAnimation { velocity: 100 } }
         }
 
         Text {
@@ -205,6 +212,8 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
             fillMode: Image.PreserveAspectFit
             source: "images/largeneedle.png"
+
+            Behavior on rotation { SmoothedAnimation { velocity: 100 } }
         }
 
         Text {
@@ -247,6 +256,8 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
             fillMode: Image.PreserveAspectFit
             source: "images/newnwwdle.png"
+
+            Behavior on rotation { SmoothedAnimation { velocity: 25 } }
         }
 
         Text {
@@ -262,7 +273,7 @@ ApplicationWindow {
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 27
         }
-        
+
     }
 
 
@@ -291,6 +302,8 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
             fillMode: Image.PreserveAspectFit
             source: "images/newnwwdle.png"
+
+             Behavior on rotation { SmoothedAnimation { velocity: 25 } }
         }
 
         Text {
@@ -305,7 +318,7 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 26
         }
-        
+
     }
 
 
@@ -321,7 +334,7 @@ ApplicationWindow {
     }
 
 
-    
+
 
 
 
@@ -388,7 +401,7 @@ ApplicationWindow {
             return 229
         }
         return ((value*27.7)-241.9)
-        
+
     }
     function mainangle(value)
     {
@@ -400,7 +413,7 @@ ApplicationWindow {
             return 229
         }
         return ((value*13.85)-574.3)
-        
+
     }
     function currentangle(value)
     {
@@ -412,7 +425,7 @@ ApplicationWindow {
             return 219
         }
         return ((value*2.59)+90)
-        
+
     }
     function speedangle(value)
     {
@@ -424,18 +437,18 @@ ApplicationWindow {
             return 219
         }
         return ((value*4.35)-39)
-        
+
     }
     function amphourpicture(value)
     {
 
-        if (value <= 25){
+        if (value <= 25*aCapacity){
             return "images/battery_low.png"
         }
-        else if (value <=50){
+        else if (value <=50*aCapacity){
             return "images/battery_low1.png"
         }
-        else if (value <75){
+        else if (value <75*aCapacity){
             return "images/battery_med.png"
         }
         else {
@@ -443,7 +456,7 @@ ApplicationWindow {
         }
 
     }
-    
+
 
     Image {
         id: challenglogo

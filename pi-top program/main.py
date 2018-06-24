@@ -21,7 +21,8 @@ ampHourvalue=0
 batteryCapacity=100
 
 #define and open the serial port
-# for windows  ser=serial.Serial('COM6')
+# for windows COM port of pi-top TTYS0
+#ser=serial.Serial('COM3')
 ser=serial.Serial('/dev/ttyS0', 57600)
 # Create an instance of the application
 app = QGuiApplication(sys.argv)
