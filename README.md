@@ -14,7 +14,8 @@ The Solar Car Challenge staff have developed some applications to assist your ra
 
 ## Applications
 1. pi-top program - This program runs on the pi-top.  It receives the data from the car, stores it, and displays it to the user.
-2. Radio program - there are two Arduino programs in this folder that create the radio bridge.  One for the car side that collects and transmits the information and one for the pi-top which receives the information and feed it to the pi-top.
+2. HELIOS program - This is the arduino code and supporting documents for the pi-top HELIOS boards.
+3. Radio program - there are two Arduino programs in this folder that create the radio bridge if you are attempting a DIY project.  One for the car side that collects and transmits the information and one for the pi-top which receives the information and feed it to the pi-top.
 
 ## Helpful Spreadsheets
 
