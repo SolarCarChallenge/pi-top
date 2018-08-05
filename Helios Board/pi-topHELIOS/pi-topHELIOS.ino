@@ -937,7 +937,7 @@ void update_ADC_readings(void){
 	adc[7].rawReading = ExtADC.analogRead(7);
 	interrupts();
 	//Calculate voltages
-	for(int x=0;x<8;x++){
+	for(int x=0;x<6;x++){
 		adc[x].voltage = float(adc[x].rawReading*16); //actual value after mapping and PD
 		adc[x].voltage /= 1000; //Convert from millivolts to volts
 	}
@@ -1104,16 +1104,7 @@ void error_buzzer(int repeat){
 void success_buzzer(void){
 	tone(BUZZER_PIN,1100,50);delay(75);
 	tone(BUZZER_PIN,1100,50);delay(75);
-	//tone(BUZZER_PIN,2000,50);delay(100);
-// 	int intervals=50;
-// 	int duration=100;
-// 	int start=950;//lowest 800
-// 	int finish=1100;//highest 1100
-// 	int level = start;
-// 	while(level!=finish){
-// 		tone(BUZZER_PIN,level,duration);delay(duration);
-// 		level+=intervals;
-// 	}
+
 }
 
 //++++++++++++++++++++++++++++++++++
@@ -1123,13 +1114,5 @@ void fail_buzzer(void){
 	tone(BUZZER_PIN,800,50);delay(75);
 	tone(BUZZER_PIN,800,50);delay(75);
 	tone(BUZZER_PIN,800,50);delay(75);
-// 	int intervals=50;
-// 	int duration=100;
-// 	int start=1100;//highest 1100
-// 	int finish=950;//lowest 800
-// 	int level = start;
-// 	while(level!=finish){
-// 		tone(BUZZER_PIN,level,duration);delay(duration);
-// 		level-=intervals;
-// 	}
+//
 }
