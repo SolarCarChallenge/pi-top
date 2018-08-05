@@ -40,7 +40,7 @@ sudo python3 main.py
 
 The Graphical User Interface(GUI) is written in a QT5 and is implemented using python and the PyQT5 library.  Don't worry if that doesn't mean anything to you.  QT has a free [community edition](https://www.qt.io/download) that makes it easy to change the layout or look of the GUI. You make changes by opening and editing the QML file in QT creator.  For some reason, QT creator designer tab does not like the Connections section of the QML file.  A simple solution is to cut the Connections section out, open the designer tab, and then past the connections back into the code.  
 
-You will probably want to customize the application to your car and voltage.  The images are stored in the /images folder.  You can modify them directly.  However, it is easier to modify the vector images that were used to produce the .png files.  These files can be found in the /vector images folder.  I used the GNU program [Inkskape](https://inkscape.org/en/) to create the guages.  Using a vector program you can easily change the text on the gauge faces, the color, or the rings.
+You will probably want to customize the application to your car and voltage.  The images are stored in the /images folder.  You can modify them directly.  However, it is easier to modify the vector images that were used to produce the .png files.  These files can be found in the /vector images folder.  I used the GNU program [Inkskape](https://inkscape.org/en/) to create the gauges.  Using a vector program you can easily change the text on the gauge faces, the color, or the rings.
 
 If you need change the range of a gauge, you will need to recalibrate the gauge to your new values by modifying the QML file..  This is done in the function section of the code.  Below is an example of the sweep of the Auxiliary voltage gauge.
 
@@ -66,7 +66,7 @@ This project was originally designed around Arduino hardware sourced from Adafru
 2. 2 x [Arduino LORA Feather](https://www.adafruit.com/product/3078)
 3. 1 x [ADS1115 Analogue to digital converter](https://www.adafruit.com/product/1085) or [ADS1015](https://www.adafruit.com/product/1083)
 4. 1 x [proto board](https://www.amazon.com/gp/product/B00LLO4Q7W/ref=oh_aui_detailpage_o00_s00?ie=UTF8&psc=1)
-5. Misc wire, resisters, and capactors.
+5. Misc wire, resisters, and capacitors.
 
 *note on suppliers.  The Solar car challenge does not endorse any particular supplier.  I (Jarrett) buy a lot of components from Adafruit as a I have had a very low rate of DOA parts from them.  They are however one of the most expensive suppliers.  Almost identical parts can be sources from Amazon, eBay, or Aliexpress much cheaper.
 
