@@ -3,8 +3,6 @@ import QtQuick.Controls 1.0
 import QtQuick.Dialogs 1.2
 
 
-
-
 ApplicationWindow {
     id: applicationWindow
     visible: true
@@ -15,10 +13,7 @@ ApplicationWindow {
 
       Item{
       property var aCapacity: 200
-
-
       }
-
 
 
     Dialog {
@@ -442,13 +437,13 @@ ApplicationWindow {
     function amphourpicture(value)
     {
 
-        if (value <= 25*aCapacity){
+        if (value <= .25*aCapacity){
             return "images/battery_low.png"
         }
-        else if (value <=50*aCapacity){
+        else if (value <=.50*aCapacity){
             return "images/battery_low1.png"
         }
-        else if (value <75*aCapacity){
+        else if (value <.75*aCapacity){
             return "images/battery_med.png"
         }
         else {

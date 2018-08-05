@@ -82,7 +82,7 @@ typedef struct {
 	uint32_t rawReading;   //raw numerical reading from the ADC
 	uint32_t rawVoltage;   //actual voltage reading after potential divider
 	float voltage;	  //voltage reading at screw terminal
-	
+
 } adcStruct;
 
 //_______________________________________________
@@ -122,7 +122,7 @@ uint8_t data[] = "ACK";
 volatile unsigned long ppsTimestamp=0;
 volatile int sentInThisWindow=0;
 //ESSENTIAL THAT SOLAR CAR ENUM AND THIS STRING LIST ARE IN THE SAME ORDER
-const char *menuStringList = 
+const char *menuStringList =
 	"Broadcasting Mode\n"//1
 	"ADC Readings\n"//2
 	"LoRa Test\n"//3
@@ -139,7 +139,7 @@ const char *menuStringList =
 //at the start of the program, then loop() is called and runs forever
 void setup(){
 	//******* Basic Pin Initialisation *******
-	//Do this first so these pins aren't floating for any time, 
+	//Do this first so these pins aren't floating for any time,
 	//since floating pins can cause all sorts of weirdness
 	//Pins are input by default, but are declared explicitly here for clarity
 	//RGB Led
@@ -160,7 +160,7 @@ void setup(){
 	pinMode(UNUSED_1_PIN,INPUT_PULLUP); //don't leave MCU pins floating
 	//GPS Pin Definitions
 	#ifndef OLD_HARDWARE_PINOUT
-		pinMode(GPS_1PPS_PIN,INPUT_PULLUP);	
+		pinMode(GPS_1PPS_PIN,INPUT_PULLUP);
 	#endif
 	//OLED Display Pin Definitions
 	pinMode(OLED_DC_PIN,OUTPUT);      digitalWrite(OLED_DC_PIN,LOW);
@@ -176,22 +176,22 @@ void setup(){
 	//******* Start Virtual USB Serial Port *******
 	SerialUSB.begin(115200);
 	//while(!SerialUSB); //Wait for the serial to begin - useful when debugging over USB
-	
+
 	//******* Start HW Serial Port to RasPi *******
 	#ifdef CHASE_CAR
 		Serial.begin(57600);
 	#endif
 
-	//******* Begin Analog-to-Digital Converter ******* 
+	//******* Begin Analog-to-Digital Converter *******
 	ExtADC.begin(); //attempt to talk to ADC on all boards
-	
+
 	//******* Boot OLED display *******
 	//u8g2.begin();
 	u8g2.begin(/*Select=*/ BUTT0_PIN, /*Right/Next=*/ U8X8_PIN_NONE, /*Left/Prev=*/ U8X8_PIN_NONE, /*Up=*/ U8X8_PIN_NONE, /*Down=*/ BUTT1_PIN, /*Home/Cancel=*/ U8X8_PIN_NONE);
 	u8g2.setFont(u8g2_font_6x12_tr);
 	u8g2.clearBuffer();
-	
-	//******* Check what type of board this is ******* 
+
+	//******* Check what type of board this is *******
 	//If we read blanks from ADC, there is no ADC and this must be a chase car board
 	if((ExtADC.analogRead(0)==0x0FFF)&&(ExtADC.analogRead(3)==0x0FFF)&&(ExtADC.analogRead(7)==0x0FFF)){
 		//No GPS module fitted, must be chase car board
@@ -209,11 +209,11 @@ void setup(){
 		#endif
 	}
 
-	//******* User Update Prompt ******* 
+	//******* User Update Prompt *******
 	#ifdef FIRMWARE_UPDATE_PROMPT
 		OLED_fw_update_prompt();
 	#endif
-	
+
 	//******* Display splash screens *******
 	u8g2.setDrawColor(1); // White
 	u8g2.drawBitmap(0,0,16,64,pitop_Logo_Horiz);
@@ -223,8 +223,8 @@ void setup(){
 	u8g2.drawBitmap(0,0,16,64,SCC_Logo_Horiz);
 	OLED_update();
 	delay(SPLASH_SCREEN_DURATION);
-		
-	//******* Begin Analog-to-Digital Converter ******* 
+
+	//******* Begin Analog-to-Digital Converter *******
 	#ifdef SOLAR_CAR
 		ExtADC.begin();
 	#endif
@@ -233,7 +233,7 @@ void setup(){
 	#ifdef SOLAR_CAR
 		SerialUSB.println("Starting GPS Module...");
 		// connect at 115200 so we can read the GPS fast enough and echo without dropping chars
-		// also spit it out  
+		// also spit it out
 		// 9600 NMEA is the default baud rate for MTK GPS's- some use 4800
 		GPS.begin(9600);
 		GPSSerial.begin(9600);
@@ -279,7 +279,7 @@ void setup(){
 		} else {
 			SerialUSB.print("Freq set to: "); SerialUSB.print(RF95_FREQ); SerialUSB.println(" MHz");
 			// The default transmitter power is 13dBm, using PA_BOOST.
-			// If you are using RFM95/96/97/98 modules which uses the PA_BOOST transmitter pin, then 
+			// If you are using RFM95/96/97/98 modules which uses the PA_BOOST transmitter pin, then
 			// you can set transmitter powers from 5 to 23 dBm:
 			LoRa.setTxPower(23, false);
 			// You can optionally require this module to wait until Channel Activity
@@ -288,7 +288,7 @@ void setup(){
 			LoRa.setCADTimeout(RF95_CAD_TIMEOUT); //For the crowded RF environment of the SOLAR CAR CHALLENGE, this is essential
 		}
 	}
-	
+
 }//--------------------------------------------------------------------
 
 
@@ -300,9 +300,9 @@ void setup(){
 //++++++++++++++++++++++++++++++++++
 //Branch to a loop depending on what board type this is
 void loop(void){
-	#ifdef SOLAR_CAR	
+	#ifdef SOLAR_CAR
 		solar_car_loop();
-	#else	
+	#else
 		chase_car_loop();
 	#endif
 }
@@ -322,7 +322,7 @@ void solar_car_loop(void) {
 	static int transmitFailStrikes=DISCONNECTED;
 	int broadcastFlag=0;
 	char gpsChar=0;
-	
+
 	switch (state){
 		case HOME_PAGE:
 			if(enteringHomePage){
@@ -336,7 +336,7 @@ void solar_car_loop(void) {
 			current_selection = 0;
 			sprintf((char*)text,"Solar Car ID:%02d",PAIRING_ID);
 			current_selection = u8g2.userInterfaceSelectionList(text,current_selection,menuStringList);
-			if(current_selection!=0){		
+			if(current_selection!=0){
 				state = current_selection;
 				SerialUSB.print(current_selection);
 				SerialUSB.println(" selected");
@@ -347,13 +347,13 @@ void solar_car_loop(void) {
 			//	u8g2.userInterfaceMessage("Nothing selected.","",""," ok ");
 			break;
 		case BROADCASTING_PAGE:
-			//GPS parsing	
+			//GPS parsing
 			gpsChar = GPS.read();
 			//if (gpsChar){SerialUSB.print(gpsChar);}
 			if (GPS.newNMEAreceived()) {
 				if (!GPS.parse(GPS.lastNMEA())) {  // this also sets the newNMEAreceived() flag to false
 					break;// we can fail to parse a sentence in which case we should just wait for another
-				} 
+				}
 			}
 			//If we have a GPS lock, broadcasting windows are determined by the PPS timestamp
 			//If there is no GPS lock, broadcasting windows are determined by LORA_TX_INTERVAL
@@ -368,8 +368,8 @@ void solar_car_loop(void) {
 				if(millis()-prevBroadcastTimestamp>LORA_TX_INTERVAL){
 					prevBroadcastTimestamp=millis();
 					broadcastFlag=1;
-				}				
-			}	
+				}
+			}
 			if(broadcastFlag){
 				//Send, update
 				update_ADC_readings();
@@ -393,7 +393,7 @@ void solar_car_loop(void) {
 				set_main_led(LED_OFF);
 				GPS_print_status_to_serial();//todo - comment out
 				OLED_draw_full_data_page((connectionState>=LORA_CONNECTION_TX_FAILCOUNT)?DISCONNECTED:CONNECTED,GPS.fix); //draws all data to screen
-				broadcastFlag=0;		
+				broadcastFlag=0;
 			}
 			//Wait for button press to exit
 			if((digitalRead(BUTT0_PIN)==LOW)||(digitalRead(BUTT1_PIN)==LOW)){
@@ -469,7 +469,7 @@ void solar_car_loop(void) {
 				u8g2log.println("then release");
 				delay(1000);
 				enteringGpsPage=0;
-			}	
+			}
 			gpsChar = GPS.read();
 			if (gpsChar) SerialUSB.print(gpsChar);
 			if (GPS.newNMEAreceived()) {
@@ -508,7 +508,7 @@ void solar_car_loop(void) {
 			OLED_update();
 			state = HOME_PAGE;
 			while((digitalRead(BUTT0_PIN)!=LOW)&&(digitalRead(BUTT1_PIN)!=LOW)){}
-			while((digitalRead(BUTT0_PIN)!=HIGH)||(digitalRead(BUTT1_PIN)!=HIGH)){}	
+			while((digitalRead(BUTT0_PIN)!=HIGH)||(digitalRead(BUTT1_PIN)!=HIGH)){}
 			break;
 		case PT_LOGO_PAGE:
 			//pi-top Logo
@@ -518,7 +518,7 @@ void solar_car_loop(void) {
 			OLED_update();
 			state = HOME_PAGE;
 			while((digitalRead(BUTT0_PIN)!=LOW)&&(digitalRead(BUTT1_PIN)!=LOW)){}
-			while((digitalRead(BUTT0_PIN)!=HIGH)||(digitalRead(BUTT1_PIN)!=HIGH)){}	
+			while((digitalRead(BUTT0_PIN)!=HIGH)||(digitalRead(BUTT1_PIN)!=HIGH)){}
 			break;
 	}
 
@@ -537,7 +537,7 @@ void chase_car_loop(void) {
 	static int newPacketWaiting = 0;
 	switch(state){
 		case STARTUP:
-			connectionState = DISCONNECTED;	
+			connectionState = DISCONNECTED;
 			state = NO_CONNECTION_PAGE;
 			break;
 		case CONNECTION_LOST_PAGE:
@@ -554,7 +554,7 @@ void chase_car_loop(void) {
 			delay(2000);
 			set_main_led(LED_OFF);
 			state = NO_CONNECTION_PAGE;
-			break;		
+			break;
 		case NO_CONNECTION_PAGE:
 			u8g2.clearBuffer();
 			u8g2.setDrawColor(1); // White
@@ -583,7 +583,7 @@ void chase_car_loop(void) {
 			}
 			break;
 		case HAVE_CONNECTION:
-			if(millis()-lastValidPacket>LORA_CONNECTION_RX_TIMEOUT){	
+			if(millis()-lastValidPacket>LORA_CONNECTION_RX_TIMEOUT){
 				state=CONNECTION_LOST_PAGE;
 				connectionState = DISCONNECTED;
 				break;
@@ -596,7 +596,7 @@ void chase_car_loop(void) {
 				state = RX_DATA_PAGE;
 			}
 			break;
-		case RX_DATA_PAGE:			
+		case RX_DATA_PAGE:
 			u8g2.clearBuffer();
 			u8g2.setDrawColor(1); // White
 			u8g2.drawBox(0,0,OLED_WIDTH,12);
@@ -659,7 +659,7 @@ void chase_car_loop(void) {
 				//	break;
 			}
 		}
-	}	
+	}
 }
 
 
@@ -687,7 +687,7 @@ void OLED_draw_full_data_page(int connectionStatus, int gpsFix){
 
 	//Wipe the page clean
 	u8g2.clearBuffer();
-	
+
 	//Draw the title bar
 	u8g2.setDrawColor(1); // White
 	u8g2.drawBox(0,0,OLED_WIDTH,12);
@@ -698,7 +698,7 @@ void OLED_draw_full_data_page(int connectionStatus, int gpsFix){
 	else{sprintf((char*)text,"DISCONNECTED");}
 	u8g2.setCursor((OLED_WIDTH/2)-(u8g2.getStrWidth((const char*)text)/2),11);
 	u8g2.print(text);
-	
+
 	//GPS fix
 	if(gpsFix==0){
 		//No GPS fix
@@ -733,7 +733,7 @@ void OLED_draw_full_data_page(int connectionStatus, int gpsFix){
 	cursorYpos+=u8g2.getMaxCharHeight();
 	u8g2.setCursor(cursorXpos,cursorYpos);
 	u8g2.print(text);
-	
+
 	//Draw ADC voltages
 	u8g2.setDrawColor(1); // White
 	u8g2.setFont(u8g2_font_u8glib_4_tf); //4 pixel height
@@ -744,7 +744,7 @@ void OLED_draw_full_data_page(int connectionStatus, int gpsFix){
 	u8g2.setCursor(BP_ADC_XPOS,BP_ADC_YPOS);
 	sprintf((char*)text,"%04.1f|%04.1f|%04.1f|%04.1f",adc[0].voltage,adc[1].voltage,adc[2].voltage,adc[3].voltage);
 	u8g2.print(text);
-	
+
 	//Draw to screen
 	OLED_update();
 }
@@ -790,7 +790,7 @@ void OLED_draw_ADC_page(void){
 void OLED_fw_update_prompt(void){
 	unsigned long millisMarker = millis();
 	//Wipe the page clean
-	u8g2.clearBuffer();	
+	u8g2.clearBuffer();
 	//Draw the title bar
 	u8g2.setDrawColor(1); // White
 	u8g2.drawBox(0,0,OLED_WIDTH,15);
@@ -816,7 +816,7 @@ void OLED_fw_update_prompt(void){
 	u8g2.print(text);
 	sprintf((char*)text,"https://github.com/");
 	u8g2.setCursor((OLED_WIDTH/2)-(u8g2.getStrWidth((const char*)text)/2),50);
-	u8g2.print(text);	
+	u8g2.print(text);
 	sprintf((char*)text,"SolarCarChallenge/pi-top");
 	u8g2.setCursor((OLED_WIDTH/2)-(u8g2.getStrWidth((const char*)text)/2),50+u8g2.getMaxCharHeight());
 	u8g2.print(text);
@@ -875,7 +875,7 @@ void OLED_wrong_fw_warning(void){
 		u8g2.print(text);
 	#endif
 	//Update screen
-	OLED_update();	
+	OLED_update();
 }
 
 
@@ -886,15 +886,15 @@ void OLED_wrong_fw_warning(void){
 //************************************************************************
 
 //++++++++++++++++++++++++++++++++++
-// Fills outgoing LoRa packet with all 
+// Fills outgoing LoRa packet with all
 // of the the latest known data
-void update_lora_packet(void){	
+void update_lora_packet(void){
 	//Time & Date
 	sprintf((char*)pack.gpsTime,"%02d:%02d:%02d",GPS.hour,GPS.minute,GPS.seconds);
 	sprintf((char*)pack.gpsDate,"%02d/%02d/20%02d",GPS.day,GPS.month,GPS.year);
 	//Location
 	sprintf((char*)pack.gpsLattitude,"%07.4f%c",GPS_degMin_to_decDeg(GPS.latitude),GPS.lat);
-	sprintf((char*)pack.gpsLongitude,"%07.4f%c",GPS_degMin_to_decDeg(GPS.longitude),GPS.lon);	
+	sprintf((char*)pack.gpsLongitude,"%07.4f%c",GPS_degMin_to_decDeg(GPS.longitude),GPS.lon);
 	//Speed
 	pack.gpsSpeed = KNOTS_TO_MPH(GPS.speed);
 	//Satellites
@@ -904,60 +904,9 @@ void update_lora_packet(void){
 	pack.adc1 = adc[1].voltage;
 	//Jarret's line for calculating current:
 	pack.current = ((adc[2].voltage/* *PrimaryCorrect*/)-(adc[3].voltage/* *PrimaryCorrect*/))*(1/SHUNT_CORRECTION);
-	//Assemble it all together	
+	//Assemble it all together
 	memset(datTX,0,RH_RF95_MAX_MESSAGE_LEN);//clear the buffer
 	sprintf((char*)datTX,"%s,%05.2f,%05.2f,%0.4f,%s,%s,%0.1f",pack.gpsTime,pack.adc0,pack.adc1,pack.current,pack.gpsLattitude,pack.gpsLongitude,pack.gpsSpeed);
-	/*	
-	//Create string to send
-	String FinalString =	\
-		String(GPS.hour)	+	\
-		":"	+	\
-		String(GPS.minute)	+	\
-		":"	+	\
-		String(GPS.seconds)	+	\
-		", "	+	\
-		String((adc[0].voltage),4)	+	\
-		", "	+	\
-		String((adc[1].voltage),4)	+	\
-		", "	+	\
-		String((current),4)	+	\
-		", "	+	\
-		String(GPS_degMin_to_decDeg(GPS.latitude),4)	+	\
-		String(GPS.lat)	+	\
-		", "	+	\
-		String(GPS_degMin_to_decDeg(GPS.longitude),4)	+	\
-		String(GPS.lon)	+	\
-		", "	+	\
-		String(KNOTS_TO_MPH(GPS.speed),1);
-	//Convert to character array to be sent, load into the output buffer
-	FinalString.toCharArray((char*)datTX, FinalString.length());	
-	*/
-}
-
-//++++++++++++++++++++++++++++++++++
-//Send LoRa data. Blocking function. Returns
-// SUCCESS if received ACK, FAILED if failed.
-int lora_send_data_to_chase_car(uint8_t* data,uint8_t len){
-	// Send a message to manager_server
-	if (LoRaManager.sendtoWait(data, len, SERVER_PAIRING_ID)){
-		SerialUSB.println("SUCCESS: Message sent okay\n");
-		return SUCCESS;
-		/*
-		// Now wait for a reply from the server
-		len = sizeof(datRX);
-		uint8_t from;
-		if (LoRaManager.recvfromAckTimeout(datRX, &len, RF95_ACK_TIMEOUT, &from)){
-			SerialUSB.print("got reply from ID:");
-			SerialUSB.print(from, DEC);
-			SerialUSB.print(" : ");
-			SerialUSB.println((char*)datRX);
-			return SUCCESS;
-		}
-		else{
-			SerialUSB.println("FAIL: Connected but no reply\n");
-			return LORA_ACK_FAILURE;
-		}
-		*/
 	}
 	else {
 		SerialUSB.println("FAIL: Couldn't connect to target\n");
@@ -967,7 +916,7 @@ int lora_send_data_to_chase_car(uint8_t* data,uint8_t len){
 
 
 
-	
+
 //************************************************************************
 //	ADC Functions
 //************************************************************************
@@ -988,7 +937,7 @@ void update_ADC_readings(void){
 	adc[7].rawReading = ExtADC.analogRead(7);
 	interrupts();
 	//Calculate voltages
-	for(int x=0;x<8;x++){	
+	for(int x=0;x<8;x++){
 		adc[x].voltage = float(adc[x].rawReading*16); //actual value after mapping and PD
 		adc[x].voltage /= 1000; //Convert from millivolts to volts
 	}
@@ -1032,10 +981,10 @@ double GPS_degMin_to_decDeg (float degMin) {
 	double min = 0.0;
 	double decDeg = 0.0;
 	//get the minutes, fmod() requires double
-	min = fmod((double)degMin, 100.0);	
+	min = fmod((double)degMin, 100.0);
 	//rebuild coordinates in decimal degrees
 	degMin = (int) ( degMin / 100 );
-	decDeg = degMin + ( min / 60 );	
+	decDeg = degMin + ( min / 60 );
 	return decDeg;
 }
 
@@ -1184,6 +1133,3 @@ void fail_buzzer(void){
 // 		level-=intervals;
 // 	}
 }
-	
-	
-
