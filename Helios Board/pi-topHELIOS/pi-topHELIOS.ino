@@ -14,14 +14,14 @@
 //It's essential that the device's unique ID is assigned here
 //This number is used to define a unique 100ms window in which to broadcast
 //So, it is limited to a maximum value of 30
-#define PAIRING_ID	//<-DON'T FORGET TO INSERT YOUR BOARD ID HERE
+#define PAIRING_ID 30//<-DON'T FORGET TO INSERT YOUR BOARD ID HERE
 //If this is the chase car board, comment out the line below
 //If it's a solar car board, leave it uncommented
 #define SOLAR_CAR
 
 //******* Miscellaneous Defines *******
 #define FIRMWARE_VERSION_MAJOR	2
-#define FIRMWARE_VERSION_MINOR	7
+#define FIRMWARE_VERSION_MINOR	8
 //#define FIRMWARE_UPDATE_PROMPT //ask user to update to latest firmware
 #define SPLASH_SCREEN_DURATION 1000 //length of time, in ms, to display the splash screen logos on boot
 
@@ -907,14 +907,36 @@ void update_lora_packet(void){
 	//Assemble it all together
 	memset(datTX,0,RH_RF95_MAX_MESSAGE_LEN);//clear the buffer
 	sprintf((char*)datTX,"%s,%05.2f,%05.2f,%0.4f,%s,%s,%0.1f",pack.gpsTime,pack.adc0,pack.adc1,pack.current,pack.gpsLattitude,pack.gpsLongitude,pack.gpsSpeed);
-	}
-	else {
-		SerialUSB.println("FAIL: Couldn't connect to target\n");
-		return LORA_CAD_FAILURE;
-	}
+
 }
 
-
+int lora_send_data_to_chase_car(uint8_t* data,uint8_t len){
+  // Send a message to manager_server
+  if (LoRaManager.sendtoWait(data, len, SERVER_PAIRING_ID)){
+    SerialUSB.println("SUCCESS: Message sent okay\n");
+    return SUCCESS;
+    /*
+    // Now wait for a reply from the server
+    len = sizeof(datRX);
+    uint8_t from;
+    if (LoRaManager.recvfromAckTimeout(datRX, &len, RF95_ACK_TIMEOUT, &from)){
+      SerialUSB.print("got reply from ID:");
+      SerialUSB.print(from, DEC);
+      SerialUSB.print(" : ");
+      SerialUSB.println((char*)datRX);
+      return SUCCESS;
+    }
+    else{
+      SerialUSB.println("FAIL: Connected but no reply\n");
+      return LORA_ACK_FAILURE;
+    }
+    */
+  }
+  else {
+    SerialUSB.println("FAIL: Couldn't connect to target\n");
+    return LORA_CAD_FAILURE;
+  }
+}
 
 
 //************************************************************************
